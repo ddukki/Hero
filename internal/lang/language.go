@@ -3,9 +3,9 @@ package lang
 import (
 	"embed"
 	"encoding/xml"
-	"math/rand"
 	"strings"
-	"time"
+
+	"github.com/ddukki/Hero/internal/util"
 )
 
 const (
@@ -18,10 +18,10 @@ const (
 var f embed.FS
 
 // The central database for accessing in-world language features.
-var DB LanguageDB
+var DB db
 
-// LanguageDB holds the languages database determining how words are created.
-type LanguageDB struct {
+// db holds the languages database determining how words are created.
+type db struct {
 	List        []*Language `xml:"language"`
 	LangsByName map[string]*Language
 }
@@ -49,8 +49,6 @@ type Part struct {
 }
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
-
 	data, _ := f.ReadFile("language.xml")
 	err := xml.Unmarshal(data, &DB)
 	if err != nil {
@@ -76,8 +74,7 @@ func init() {
 // randSyllable returns a random syllable from the available syllables in
 // the part.
 func (p *Part) randSyllable() string {
-	n := len(p.Syllables)
-	return p.Syllables[rand.Intn(n)]
+	return p.Syllables[util.RandIdx(p.Syllables)]
 }
 
 // Generate creates a random string from the syllables defined by this rule.
