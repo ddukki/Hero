@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 
+	"github.com/ddukki/Hero/internal/entity/character/skill"
 	"github.com/ddukki/Hero/internal/entity/domain"
 	"github.com/ddukki/Hero/internal/lang"
 )
@@ -16,7 +17,7 @@ type Character struct {
 	GenerationalName string
 	KnownLangs       []*lang.Language
 	baseStats        *domain.Stats
-	education        map[string]Learned
+	education        map[string]skill.Learned
 }
 
 // NewCharacter creates a new character with the given attributes.
@@ -31,7 +32,7 @@ func NewCharacter(
 		GenerationalName: generational,
 		KnownLangs:       langs,
 		baseStats:        stats,
-		education:        make(map[string]Learned),
+		education:        make(map[string]skill.Learned),
 	}
 }
 

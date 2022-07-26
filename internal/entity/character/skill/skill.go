@@ -1,4 +1,4 @@
-package character
+package skill
 
 import "github.com/ddukki/Hero/internal/entity/domain"
 

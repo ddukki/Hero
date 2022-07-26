@@ -101,16 +101,37 @@ func (c *Condition) Value() int {
 
 // Set implements RangedStat.
 func (c *Condition) Set(v int) {
+	if v < c.min {
+		v = c.min
+	} else if v > c.max {
+		v = c.max
+	}
+
 	c.val = v
 }
 
 // Set implements RangedStat.
 func (c *Condition) SetMin(min int) {
+	if min >= c.max {
+		min = c.max - 1
+	}
 	c.min = min
 }
 
 // Set implements RangedStat.
 func (c *Condition) SetMax(max int) {
+	if max <= c.min {
+		max = c.min + 1
+	}
+	c.max = max
+}
+
+// SetMinMax implements RangedStat.
+func (c *Condition) SetMinMax(min, max int) {
+	if max <= min {
+		max = min + 1
+	}
+	c.min = min
 	c.max = max
 }
 
@@ -154,4 +175,7 @@ type RangedStat[T Number] interface {
 
 	// SetMin sets the value of the minimum of the ranged stat.
 	SetMin(T)
+
+	// SetMinMax sets the values of the minimum and maximum of the ranged stat.
+	SetMinMax(T, T)
 }
