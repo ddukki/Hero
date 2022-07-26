@@ -1,9 +1,15 @@
 package character
 
-import "theduckymonk.org/hero/internal/entity/domain"
+import "github.com/ddukki/Hero/internal/entity/domain"
 
-// DB is a database containing all skills.
-type DB struct {
+var DB *db
+
+func init() {
+	DB = &db{}
+}
+
+// db is a database containing all skills.
+type db struct {
 	SkillNames []string
 	Skills     map[string]*Skill
 }
@@ -14,9 +20,9 @@ type Skill struct {
 	mods map[domain.StatEnum]int
 }
 
-// LearnedSkill defines a level for a learned skill and provides access to
+// Learned defines a level for a learned skill and provides access to
 // modifier values.
-type LearnedSkill struct {
+type Learned struct {
 	base  *Skill
 	level int
 }
@@ -33,18 +39,18 @@ func (s *Skill) GetModifiers() map[domain.StatEnum]int {
 }
 
 // GetLevel returns the level of the learned skill.
-func (l *LearnedSkill) GetLevel() int {
+func (l *Learned) GetLevel() int {
 	return l.level
 }
 
 // LevelUp increments the level counter.
-func (l *LearnedSkill) LevelUp() {
+func (l *Learned) LevelUp() {
 	l.level++
 }
 
 // GetModifier returns a modified value for the stat with the level applied. If
 // there is no stat value for the enum, a zero is returned.
-func (l *LearnedSkill) GetModifier(se domain.StatEnum) int {
+func (l *Learned) GetModifier(se domain.StatEnum) int {
 	mod, ok := l.base.mods[se]
 	if !ok {
 		return 0

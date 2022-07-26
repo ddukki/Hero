@@ -3,7 +3,7 @@ package domain
 import (
 	"fmt"
 
-	"theduckymonk.org/hero/internal/engine/domain"
+	"github.com/ddukki/Hero/internal/engine/domain"
 )
 
 type StatEnum int

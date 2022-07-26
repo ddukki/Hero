@@ -1,6 +1,6 @@
 package engine
 
-import "theduckymonk.org/hero/internal/engine/domain"
+import "github.com/ddukki/Hero/internal/engine/domain"
 
 // Engine is the main driving force of the program.
 type Engine struct {

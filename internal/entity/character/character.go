@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 
-	"theduckymonk.org/hero/internal/entity/domain"
-	"theduckymonk.org/hero/internal/lang"
+	"github.com/ddukki/Hero/internal/entity/domain"
+	"github.com/ddukki/Hero/internal/lang"
 )
 
 // Character defines the properties and characteristics of a particular
@@ -16,7 +16,7 @@ type Character struct {
 	GenerationalName string
 	KnownLangs       []*lang.Language
 	baseStats        *domain.Stats
-	education        map[string]LearnedSkill
+	education        map[string]Learned
 }
 
 // NewCharacter creates a new character with the given attributes.
@@ -31,7 +31,7 @@ func NewCharacter(
 		GenerationalName: generational,
 		KnownLangs:       langs,
 		baseStats:        stats,
-		education:        make(map[string]LearnedSkill),
+		education:        make(map[string]Learned),
 	}
 }
 
