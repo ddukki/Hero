@@ -18,11 +18,11 @@ const (
 var f embed.FS
 
 // The central database for accessing in-world language features.
-var LangDB LanguageDB
+var DB LanguageDB
 
 // LanguageDB holds the languages database determining how words are created.
 type LanguageDB struct {
-	Languages   []*Language `xml:"language"`
+	List        []*Language `xml:"language"`
 	LangsByName map[string]*Language
 }
 
@@ -52,16 +52,16 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 
 	data, _ := f.ReadFile("language.xml")
-	err := xml.Unmarshal(data, &LangDB)
+	err := xml.Unmarshal(data, &DB)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	LangDB.LangsByName = make(map[string]*Language)
+	DB.LangsByName = make(map[string]*Language)
 
 	// Parse and extract syllables from languages.
-	for _, l := range LangDB.Languages {
-		LangDB.LangsByName[l.Name] = l
+	for _, l := range DB.List {
+		DB.LangsByName[l.Name] = l
 		l.RulesByName = make(map[string]*Rule)
 
 		for _, r := range l.Rules {
