@@ -9,9 +9,9 @@ import (
 )
 
 func TestNameGen(t *testing.T) {
-	assert.Equal(t, 2, len(DB.List))
-	l := DB.List[util.RandIdx(DB.List)]
-	r := l.Rules[util.RandIdx(l.Rules)]
+	assert.Equal(t, 2, len(DB.Languages))
+	l := DB.Languages[util.GetRandomKey(DB.Languages)]
+	r := l.Rules[util.GetRandomKey(l.Rules)]
 
 	randName := r.Generate()
 	fmt.Println(randName)

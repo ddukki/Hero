@@ -6,6 +6,7 @@ import (
 	"github.com/ddukki/Hero/internal/engine/domain"
 )
 
+// StatEnum defines an enumeration for the different types of stat values.
 type StatEnum int
 
 const (
@@ -19,6 +20,7 @@ const (
 	_statlim
 )
 
+// A range of different numeric types.
 type Number interface {
 	uint | uint32 | uint64 | int | int32 | int64 | float32 | float64
 }
@@ -39,7 +41,8 @@ func GetStatEnums() []StatEnum {
 	return se
 }
 
-func NewRandomStats() *Stats {
+// NewRandomBaseStats generates new random stats based on domain.RollBaseStat.
+func NewRandomBaseStats() *Stats {
 	s := &Stats{Base: make(map[StatEnum]int)}
 
 	for e := StatEnum(0); e < _statlim; e++ {
@@ -56,6 +59,8 @@ func (s *Stats) String() string {
 		b[STR], b[CON], b[DEX], b[CHA], b[WIS], b[INT])
 }
 
+// ConditionEnum defines an enumeration for the different types of condition
+// ranged stats.
 type ConditionEnum int
 
 const (
@@ -78,6 +83,8 @@ func GetConditionEnums() []ConditionEnum {
 
 var _ RangedStat[int] = (*Condition)(nil)
 
+// Condition defines the condition of whatever contains it. The condition can
+// deteriorate, indicated by the current value of the condition.
 type Condition struct {
 	max int
 	min int

@@ -18,54 +18,76 @@ const (
 var f embed.FS
 
 // The central database for accessing in-world language features.
-var DB db
+var DB *db
 
 // db holds the languages database determining how words are created.
 type db struct {
-	List        []*Language `xml:"language"`
-	LangsByName map[string]*Language
+	Languages map[string]*Language
 }
 
 // Language contains the rules that defines how words are generated.
 type Language struct {
-	Name        string  `xml:"name"`
-	Rules       []*Rule `xml:"rule"`
-	RulesByName map[string]*Rule
+	Name  string
+	Rules map[string]*Rule
 }
 
 // Rule defines a specific category of words in a language, along with valid
 // word parts in that category that can be summed to create a word.
 type Rule struct {
-	Name  string  `xml:"name"`
-	Parts []*Part `xml:"part"`
+	Name  string
+	Parts []*Part
 }
 
 // Part defines a set of syllables that are valid for a specific part of a word.
 // Words can be thought of as having multiple "parts" or slots in which
 // syllables can be placed.
 type Part struct {
-	Raw       string `xml:"syllables"`
 	Syllables []string
 }
 
 func init() {
+
+	// Create a holder for the XML data.
+	langDBStruct := struct {
+		XList []*struct {
+			XName  string `xml:"name"`
+			XRules []*struct {
+				XName  string `xml:"name"`
+				XParts []*struct {
+					XRaw string `xml:"syllables"`
+				} `xml:"part"`
+			} `xml:"rule"`
+		} `xml:"language"`
+	}{}
+
 	data, _ := f.ReadFile("language.xml")
-	err := xml.Unmarshal(data, &DB)
+	err := xml.Unmarshal(data, &langDBStruct)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	DB.LangsByName = make(map[string]*Language)
+	DB = &db{}
+	DB.Languages = make(map[string]*Language)
 
 	// Parse and extract syllables from languages.
-	for _, l := range DB.List {
-		DB.LangsByName[l.Name] = l
-		l.RulesByName = make(map[string]*Rule)
+	for _, l := range langDBStruct.XList {
+		lang := &Language{
+			Name:  l.XName,
+			Rules: make(map[string]*Rule),
+		}
+		DB.Languages[l.XName] = lang
 
-		for _, r := range l.Rules {
-			l.RulesByName[r.Name] = r
-			for _, p := range r.Parts {
-				p.Syllables = strings.Split(p.Raw, ";")
+		for _, r := range l.XRules {
+			rule := &Rule{
+				Name:  r.XName,
+				Parts: make([]*Part, 0, len(r.XParts)),
+			}
+			lang.Rules[r.XName] = rule
+			for _, p := range r.XParts {
+				part := &Part{
+					Syllables: strings.Split(p.XRaw, ";"),
+				}
+				rule.Parts = append(rule.Parts, part)
 			}
 		}
 	}

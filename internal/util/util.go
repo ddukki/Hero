@@ -11,7 +11,8 @@ func init() {
 
 // RandIdx generates a random index within the bounds of the given list.
 func RandIdx[T any](l []T) int {
-	return rand.Intn(len(l))
+	n := len(l)
+	return rand.Intn(n)
 }
 
 // GetRandomKey generates a random key for the given map.

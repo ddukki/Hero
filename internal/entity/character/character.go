@@ -2,11 +2,11 @@ package character
 
 import (
 	"fmt"
-	"math/rand"
 
 	"github.com/ddukki/Hero/internal/entity/character/skill"
 	"github.com/ddukki/Hero/internal/entity/domain"
 	"github.com/ddukki/Hero/internal/lang"
+	"github.com/ddukki/Hero/internal/util"
 )
 
 // Character defines the properties and characteristics of a particular
@@ -40,15 +40,13 @@ func NewCharacter(
 func NewRandomCharacter() *Character {
 
 	// Get a random language.
-	nLang := len(lang.DB.List)
-	rl := rand.Intn(nLang)
-	l := lang.DB.List[rl]
+	l := lang.DB.Languages[util.GetRandomKey(lang.DB.Languages)]
 	languages := []*lang.Language{l}
 
-	given := l.RulesByName[lang.RULE_GIVEN].Generate()
-	generational := l.RulesByName[lang.RULE_GENERATIONAL].Generate()
+	given := l.Rules[lang.RULE_GIVEN].Generate()
+	generational := l.Rules[lang.RULE_GENERATIONAL].Generate()
 
-	return NewCharacter(domain.NewRandomStats(), languages, given, generational)
+	return NewCharacter(domain.NewRandomBaseStats(), languages, given, generational)
 }
 
 // UpdateConditions updates the conditions based on the stats of the character.
