@@ -52,6 +52,57 @@
         </rule>
     </language>
     <language>
+      <name>Tobinian</name>
+      <rule>
+        <name>given</name>
+        <part>
+          <syllables>B;Th;T;D;G;K</syllables>
+        </part>
+        <part>
+          <syllables>u;o;a</syllables>
+        </part>
+        <part>
+          <syllables>ld;r;rd;;</syllables>
+        </part>
+        <part>
+          <syllables>a;i</syllables>
+        </part>
+        <part>
+          <syllables>n</syllables>
+        </part>
+      </rule>
+      <rule>
+        <name>generational</name>
+        <part>
+          <syllables>Iron;Gold;Bronze;Mythril;Silver</syllables>
+        </part>
+        <part>
+          <syllables>hammer;fist;hand;helm;shield</syllables>
+        </part>
+      </rule>
+      <rule>
+        <name>locale</name>
+        <part>
+          <syllables>Kh;Zh;D;Th;F</syllables>
+        </part>
+        <part>
+          <syllables>az;ar;ov';;</syllables>
+        </part>
+        <part>
+          <syllables>ad;od;id;un</syllables>
+        </part>
+        <part>
+          <syllables> Kh; Zh; D; Th; F</syllables>
+        </part>
+        <part>
+          <syllables>az;ar;ov';;</syllables>
+        </part>
+        <part>
+          <syllables>ad;od;id;un</syllables>
+        </part>
+      </rule>
+    </language>
+    <language>
 		<name>Corinthian</name>
         <rule>
             <name>given</name>
