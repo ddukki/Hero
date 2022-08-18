@@ -3,7 +3,7 @@ package domain
 import (
 	"fmt"
 
-	"github.com/ddukki/Hero/internal/engine/domain"
+	"github.com/ddukki/Hero/src/engine/domain"
 )
 
 // StatEnum defines an enumeration for the different types of stat values.

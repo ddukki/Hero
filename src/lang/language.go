@@ -5,7 +5,7 @@ import (
 	"encoding/xml"
 	"strings"
 
-	"github.com/ddukki/Hero/internal/util"
+	"github.com/ddukki/Hero/src/util"
 )
 
 const (

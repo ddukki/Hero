@@ -3,10 +3,10 @@ package character
 import (
 	"fmt"
 
-	"github.com/ddukki/Hero/internal/entity/character/skill"
-	"github.com/ddukki/Hero/internal/entity/domain"
-	"github.com/ddukki/Hero/internal/lang"
-	"github.com/ddukki/Hero/internal/util"
+	"github.com/ddukki/Hero/src/entity/character/skill"
+	"github.com/ddukki/Hero/src/entity/domain"
+	"github.com/ddukki/Hero/src/lang"
+	"github.com/ddukki/Hero/src/util"
 )
 
 // Character defines the properties and characteristics of a particular

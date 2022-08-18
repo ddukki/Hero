@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ddukki/Hero/internal/util"
+	"github.com/ddukki/Hero/src/util"
 	"github.com/stretchr/testify/assert"
 )
 

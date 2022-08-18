@@ -1,6 +1,6 @@
 package skill
 
-import "github.com/ddukki/Hero/internal/entity/domain"
+import "github.com/ddukki/Hero/src/entity/domain"
 
 var DB *db
 
